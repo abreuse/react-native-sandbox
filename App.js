@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
-import FBLogin from './android/FBLogin';
+import FBLogin from './FBLogin';
 import Login from './Login';
 
 const App = () => {
