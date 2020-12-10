@@ -16,6 +16,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* GenericLoginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GenericLoginTests.m */; };
 		4940486039A54E7BDE5A94EB /* libPods-GenericLogin-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D79799F33CF2CA129F9E82 /* libPods-GenericLogin-tvOS.a */; };
+		5E5FE06425827C0900523FC3 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5FE06325827C0900523FC3 /* File.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C2AC7AA5F71545D883A85374 /* libPods-GenericLogin-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0FA1381E7377D844C1A4F63 /* libPods-GenericLogin-tvOSTests.a */; };
 		D7549026A6381ACDF59F3B95 /* libPods-GenericLogin-GenericLoginTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2083F98C1A8636285FFBDD /* libPods-GenericLogin-GenericLoginTests.a */; };
@@ -56,6 +57,8 @@
 		2D02E4901E0B4A5D006451C7 /* GenericLogin-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GenericLogin-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36DC30A7DD67F06B299A315F /* Pods-GenericLogin-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericLogin-tvOS.release.xcconfig"; path = "Target Support Files/Pods-GenericLogin-tvOS/Pods-GenericLogin-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		374FBE61531DA7D44B2E5749 /* Pods-GenericLogin-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericLogin-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-GenericLogin-tvOSTests/Pods-GenericLogin-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		5E5FE06225827C0900523FC3 /* GenericLogin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GenericLogin-Bridging-Header.h"; sourceTree = "<group>"; };
+		5E5FE06325827C0900523FC3 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GenericLogin/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E5FA477587724774F264C82 /* Pods-GenericLogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GenericLogin.release.xcconfig"; path = "Target Support Files/Pods-GenericLogin/Pods-GenericLogin.release.xcconfig"; sourceTree = "<group>"; };
 		BC2083F98C1A8636285FFBDD /* libPods-GenericLogin-GenericLoginTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GenericLogin-GenericLoginTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +135,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				5E5FE06325827C0900523FC3 /* File.swift */,
+				5E5FE06225827C0900523FC3 /* GenericLogin-Bridging-Header.h */,
 			);
 			name = GenericLogin;
 			sourceTree = "<group>";
@@ -161,7 +166,6 @@
 				F404CA2531376CC217F97D43 /* Pods-GenericLogin-tvOSTests.debug.xcconfig */,
 				374FBE61531DA7D44B2E5749 /* Pods-GenericLogin-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -294,7 +298,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1220;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -573,6 +577,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				5E5FE06425827C0900523FC3 /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,6 +619,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BDBB677BD488A4A44B39A964 /* Pods-GenericLogin-GenericLoginTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -637,6 +643,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E220191B0238F76C38402A29 /* Pods-GenericLogin-GenericLoginTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = GenericLoginTests/Info.plist;
@@ -670,6 +677,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = GenericLogin;
+				SWIFT_OBJC_BRIDGING_HEADER = "GenericLogin-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -692,6 +700,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = GenericLogin;
+				SWIFT_OBJC_BRIDGING_HEADER = "GenericLogin-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
