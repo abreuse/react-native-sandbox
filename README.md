@@ -88,6 +88,10 @@ SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B
 Valid until: mercredi 1 mai 2052
 ```
 
+you can also use :
+
+    keytool -list -v -alias androiddebugkey -keystore ~.android/debug.keystore
+
 ### Update strings.xml
 
 modify `android/app/src/main/res/values/strings.xml`
@@ -97,8 +101,13 @@ to
 ```xml
 <resources>
     ...
-    <string name="server_client_id">560581018034-647b0kct073lighkt00ec5h72kg29csh.apps.googleusercontent.com</string>
+    <string name="server_client_id">560581018034-647b0kct073lighkt00ec5h72kg29csh.apps.googleusercontent.com</string> 
+    <!-- THIS IS YOUR WEB CLIENT ID FROM DEVELOPER CONSOLE -->
     ...
 </resources>
 
 ```
+
+### Others
+
+check commit https://github.com/abreuse/react-native-sandbox/commit/11f998e9547e009fe93a8232e94ba6814c4628a6
