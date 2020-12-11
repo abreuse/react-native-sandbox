@@ -4,6 +4,21 @@ Logins
 Facebook login
 ===
 
+## For IOS
+
+check this doc https://medium.com/@mehrankhandev/integrating-fbsdk-facebook-login-in-react-native-7b7600ce74a7
+
+## For Android
+
+check this doc https://medium.com/@mehrankhandev/integrating-fbsdk-facebook-login-in-react-native-7b7600ce74a7
+
+for hash key : 
+
+    keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
+
+## Known errors
+
+check issues tab on this github
 
 Google login
 ===
