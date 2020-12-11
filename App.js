@@ -1,7 +1,8 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
-import FBLogin from './FBLogin';
 import Login from './Login';
+import FBLogin from './FBLogin';
+import GoogleLogin from './GoogleLogin';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           style={styles.scrollView}>
           <Login appName="AGAIA" />
           <FBLogin />
+          <GoogleLogin />
         </ScrollView>
       </SafeAreaView>
     </>
