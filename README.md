@@ -61,3 +61,44 @@ useEffect(() => {
 ```
 
 ## For Android
+
+### Generate Android Client ID
+
+go to 
+
+    https://console.developers.google.com
+
+select/create your project and generate iOS client ID. A web client ID should be generated auto.
+
+For the SHA-1, use
+
+    cd android 
+    ./gradlew signingReport
+
+and select SHA-1 from `variant: debug`
+
+```
+Variant: debug
+Config: debug
+Store: /Users/Alexis/Documents/Projets/ReactNative/GenericLogin/android/app/debug.keystore
+Alias: androiddebugkey
+MD5: 20:F4:61:48:B7:2D:8E:5E:5C:A2:3D:37:A4:F4:14:90
+SHA1: 5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25
+SHA-256: FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C
+Valid until: mercredi 1 mai 2052
+```
+
+### Update strings.xml
+
+modify `android/app/src/main/res/values/strings.xml`
+
+to
+
+```xml
+<resources>
+    ...
+    <string name="server_client_id">560581018034-647b0kct073lighkt00ec5h72kg29csh.apps.googleusercontent.com</string>
+    ...
+</resources>
+
+```
