@@ -7,7 +7,7 @@ import {
 import {View, TouchableOpacity, Text} from 'react-native';
 
 const GoogleLogin = () => {
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -58,7 +58,7 @@ const GoogleLogin = () => {
       <TouchableOpacity onPress={signOut}>
         <Text>SIGN OUT FROM GOOGLE</Text>
       </TouchableOpacity>
-  <Text>user info : {userInfo}</Text>
+      <Text>user info : {JSON.stringify(userInfo)}</Text>
     </View>
   );
 };

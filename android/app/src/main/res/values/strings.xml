@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GenericLogin</string>
     <string name="facebook_app_id">694832534383729</string>
+    <string name="server_client_id">560581018034-647b0kct073lighkt00ec5h72kg29csh.apps.googleusercontent.com</string> <!-- WEB CLIENT ID -->
 </resources>
