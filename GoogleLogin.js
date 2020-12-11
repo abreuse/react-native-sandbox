@@ -17,14 +17,13 @@ const GoogleLogin = () => {
         '560581018034-uat18rtfv0sejjdnvu9274qarprl03hk.apps.googleusercontent.com',
     });
 
-    GoogleSignin.signInSilently()
-      .then((currentUserInfo) => {
-        setUserInfo(currentUserInfo);
-        setLoggedIn(true);
-      })
-      .catch((err) => {
-        console.log('User has not signed in manually yet.', err);
-      });
+    GoogleSignin.isSignedIn().then((isSignedIn) => {
+      isSignedIn &&
+        GoogleSignin.signInSilently().then((currentUserInfo) => {
+          setUserInfo(currentUserInfo);
+          setLoggedIn(true);
+        });
+    });
   }, []); //[] as 2nd parameter will tell useEffect to execute only once
 
   const signIn = () => {
