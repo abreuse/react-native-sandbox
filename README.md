@@ -4,6 +4,8 @@ Logins
 Facebook login
 ===
 
+react-native code : check file `FBLogin.js`
+
 ## For IOS
 
 check this doc https://medium.com/@mehrankhandev/integrating-fbsdk-facebook-login-in-react-native-7b7600ce74a7
