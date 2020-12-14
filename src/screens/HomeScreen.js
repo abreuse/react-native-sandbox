@@ -23,10 +23,7 @@ const HomeScreen = ({navigation}) => (
       style={styles.socialNetworkButton}
       onLogin={() => navigation.navigate('Dashboard')}
     />
-    <FBLogin
-      onLogin={() => navigation.navigate('Dashboard')}
-      style={styles.socialNetworkButton}
-    />
+    <FBLogin onLogin={() => navigation.navigate('Dashboard')} />
     <Button
       mode="outlined"
       onPress={() => navigation.navigate('RegisterScreen')}>

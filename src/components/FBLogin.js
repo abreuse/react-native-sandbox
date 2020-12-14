@@ -5,7 +5,9 @@ import {
   AccessToken,
   GraphRequest,
   GraphRequestManager,
+  LoginManager,
 } from 'react-native-fbsdk';
+import Button from '../components/Button';
 
 const FBLogin = ({onLogin}) => {
   const [userInfo, setUserInfo] = useState({});
@@ -32,28 +34,26 @@ const FBLogin = ({onLogin}) => {
     new GraphRequestManager().addRequest(profileRequest).start();
   };
 
+  const loginThroughFacebook = () => {
+    LoginManager.logInWithPermissions(['public_profile']).then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login Cancelled');
+        } else {
+          console.log('logged in !! :' + JSON.stringify(result));
+        }
+      },
+      function (error) {
+        console.log('some error occurred!!');
+      },
+    );
+  };
+
   //TODO: USE LOGIN MANAGER  import {LoginManager} from 'react-native-fbsdk';
   return (
-    <View>
-      <LoginButton
-        style={{width: 305, height: 48}}
-        onLoginFinished={(error, result) => {
-          if (error) {
-            console.log('Could not log user through FB', result.error);
-          } else if (result.isCancelled) {
-            console.log('User cancels the login through FB');
-          } else {
-            AccessToken.getCurrentAccessToken().then((data) => {
-              const accessToken = data.accessToken.toString();
-              retrieveUserInfos(accessToken);
-              onLogin();
-            });
-          }
-        }}
-        onLogoutFinished={() => setUserInfo({})}
-      />
-      {userInfo.name && <Text>Logged in As {userInfo.name}</Text>}
-    </View>
+    <Button mode="contained" onPress={loginThroughFacebook}>
+      Login with Facebook
+    </Button>
   );
 };
 
