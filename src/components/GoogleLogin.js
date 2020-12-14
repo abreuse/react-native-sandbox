@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
 import {View, TouchableOpacity, Text} from 'react-native';
 
-const GoogleLogin = ({onLogin}) => {
-  const [userInfo, setUserInfo] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+class GoogleLogin extends React.Component {
+  onLogin;
+  state = {userInfo: {}, loggedIn: false};
 
-  useEffect(() => {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
     GoogleSignin.configure({
       webClientId:
         '560581018034-647b0kct073lighkt00ec5h72kg29csh.apps.googleusercontent.com',
@@ -20,20 +24,20 @@ const GoogleLogin = ({onLogin}) => {
     GoogleSignin.isSignedIn().then((isSignedIn) => {
       isSignedIn &&
         GoogleSignin.signInSilently().then((currentUserInfo) => {
-          setUserInfo(currentUserInfo);
-          setLoggedIn(true);
+          this.setState({userInfo: currentUserInfo});
+          this.setState({loggedIn: true});
         });
     });
-  }, []); //[] as 2nd parameter will tell useEffect to execute only once
+  }
 
-  const signIn = () => {
+  signIn = () => {
     GoogleSignin.hasPlayServices()
       .then(() => {
         GoogleSignin.signIn()
           .then((currentUserInfo) => {
-            setUserInfo(currentUserInfo);
-            setLoggedIn(true);
-            onLogin();
+            this.setState({userInfo: currentUserInfo});
+            this.setState({loggedIn: true});
+            this.props.onLogin();
           })
           .catch((err) => {
             console.log('Cannot log user with Google', err);
@@ -44,13 +48,13 @@ const GoogleLogin = ({onLogin}) => {
       });
   };
 
-  const signOut = () => {
+  signOut = () => {
     GoogleSignin.revokeAccess()
       .then(() => {
         GoogleSignin.signOut()
           .then(() => {
-            setLoggedIn(false);
-            setUserInfo({});
+            this.setState({loggedIn: false});
+            this.setState({userInfo: {}});
           })
           .catch((err) => {
             console.log('Could not sign out from Google', err);
@@ -61,26 +65,28 @@ const GoogleLogin = ({onLogin}) => {
       });
   };
 
-  return (
-    <View>
-      {!loggedIn && (
-        <GoogleSigninButton
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={signIn}
-          disabled={false}
-        />
-      )}
-      {loggedIn && (
-        <View>
-          <Text>Welcome {userInfo.user.name}</Text>
-          <TouchableOpacity onPress={signOut}>
-            <Text>SIGN OUT FROM GOOGLE</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
-  );
-};
+  render() {
+    return (
+      <View>
+        {!this.state.loggedIn && (
+          <GoogleSigninButton
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={this.signIn}
+            disabled={false}
+          />
+        )}
+        {this.state.loggedIn && (
+          <View>
+            <Text>Welcome {this.state.userInfo.user.name}</Text>
+            <TouchableOpacity onPress={this.signOut}>
+              <Text>SIGN OUT FROM GOOGLE</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    );
+  }
+}
 
 export default GoogleLogin;
