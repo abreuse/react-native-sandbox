@@ -7,10 +7,10 @@ import {
   GraphRequestManager,
 } from 'react-native-fbsdk';
 
-const FBLogin = () => {
+const FBLogin = ({onLogin}) => {
   const [userInfo, setUserInfo] = useState({});
 
-  const getInfoFromToken = (token) => {
+  const retrieveUserInfos = (token) => {
     const PROFILE_REQUEST_PARAMS = {
       fields: {
         string: 'id, name,  first_name, last_name',
@@ -20,12 +20,11 @@ const FBLogin = () => {
     const profileRequest = new GraphRequest(
       '/me',
       {token, parameters: PROFILE_REQUEST_PARAMS},
-      (error, result) => {
+      (error, currentUserInfos) => {
         if (error) {
-          console.log('login info has error: ' + error);
+          console.log('Could not retrieve FB user infos', error);
         } else {
-          setUserInfo(result);
-          console.log('result:', result);
+          setUserInfo(currentUserInfos);
         }
       },
     );
@@ -33,28 +32,27 @@ const FBLogin = () => {
     new GraphRequestManager().addRequest(profileRequest).start();
   };
 
+  //TODO: USE LOGIN MANAGER  import {LoginManager} from 'react-native-fbsdk';
   return (
-    <View style={{flex: 1, margin: 50}}>
+    <View>
       <LoginButton
+        style={{width: 305, height: 48}}
         onLoginFinished={(error, result) => {
           if (error) {
-            console.log('login has error: ' + result.error);
+            console.log('Could not log user through FB', result.error);
           } else if (result.isCancelled) {
-            console.log('login is cancelled.');
+            console.log('User cancels the login through FB');
           } else {
             AccessToken.getCurrentAccessToken().then((data) => {
               const accessToken = data.accessToken.toString();
-              getInfoFromToken(accessToken);
+              retrieveUserInfos(accessToken);
+              onLogin();
             });
           }
         }}
-        onLogoutFinished={() => setUserInfo(userInfo)}
+        onLogoutFinished={() => setUserInfo({})}
       />
-      {userInfo.name && (
-        <Text style={{fontSize: 16, marginVertical: 16}}>
-          Logged in As {userInfo.name}
-        </Text>
-      )}
+      {userInfo.name && <Text>Logged in As {userInfo.name}</Text>}
     </View>
   );
 };

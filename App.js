@@ -1,28 +1,14 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
-import Login from './Login';
-import FBLogin from './FBLogin';
-import GoogleLogin from './GoogleLogin';
+import {Provider} from 'react-native-paper';
+import {theme} from './src/theme';
+import App from './src';
 
-const App = () => {
+const Main = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Login appName="AGAIA" />
-          <FBLogin />
-          <GoogleLogin />
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <Provider theme={theme}>
+      <App />
+    </Provider>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {},
-});
-
-export default App;
+export default Main;

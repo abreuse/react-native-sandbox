@@ -5,7 +5,7 @@ import {
 } from '@react-native-community/google-signin';
 import {View, TouchableOpacity, Text} from 'react-native';
 
-const GoogleLogin = () => {
+const GoogleLogin = ({onLogin}) => {
   const [userInfo, setUserInfo] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -33,6 +33,7 @@ const GoogleLogin = () => {
           .then((currentUserInfo) => {
             setUserInfo(currentUserInfo);
             setLoggedIn(true);
+            onLogin();
           })
           .catch((err) => {
             console.log('Cannot log user with Google', err);
@@ -64,7 +65,6 @@ const GoogleLogin = () => {
     <View>
       {!loggedIn && (
         <GoogleSigninButton
-          style={{width: 192, height: 48}}
           size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Dark}
           onPress={signIn}
