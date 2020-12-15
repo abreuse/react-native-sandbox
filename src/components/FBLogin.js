@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import React from 'react';
 import {
-  LoginButton,
   AccessToken,
   GraphRequest,
   GraphRequestManager,
@@ -9,10 +7,28 @@ import {
 } from 'react-native-fbsdk';
 import Button from '../components/Button';
 
-const FBLogin = ({onLogin}) => {
-  const [userInfo, setUserInfo] = useState({});
+class FBLogin extends React.Component {
+  onLogin;
+  state = {userInfo: {}, loggedIn: false};
 
-  const retrieveUserInfos = (token) => {
+  constructor(props) {
+    super(props);
+  }
+
+  async componentDidMount() {
+    if (await this.isLoggedIn()) {
+      const userData = await AccessToken.getCurrentAccessToken();
+      await this.retrieveUserInfos(userData.accessToken);
+      this.props.onLogin();
+    }
+  }
+
+  isLoggedIn = async () => {
+    const data = await AccessToken.getCurrentAccessToken();
+    return data != null;
+  };
+
+  retrieveUserInfos = async (token) => {
     const PROFILE_REQUEST_PARAMS = {
       fields: {
         string: 'id, name,  first_name, last_name',
@@ -24,9 +40,10 @@ const FBLogin = ({onLogin}) => {
       {token, parameters: PROFILE_REQUEST_PARAMS},
       (error, currentUserInfos) => {
         if (error) {
-          console.log('Could not retrieve FB user infos', error);
+          console.log('Could not retrieve Facebook user infos', error);
         } else {
-          setUserInfo(currentUserInfos);
+          this.setState({userInfo: currentUserInfos});
+          this.setState({loggedIn: true});
         }
       },
     );
@@ -34,27 +51,25 @@ const FBLogin = ({onLogin}) => {
     new GraphRequestManager().addRequest(profileRequest).start();
   };
 
-  const loginThroughFacebook = () => {
-    LoginManager.logInWithPermissions(['public_profile']).then(
-      function (result) {
-        if (result.isCancelled) {
-          console.log('Login Cancelled');
-        } else {
-          console.log('logged in !! :' + JSON.stringify(result));
-        }
-      },
-      function (error) {
-        console.log('some error occurred!!');
-      },
-    );
+  loginThroughFacebook = async () => {
+    const loginFlow = await LoginManager.logInWithPermissions([
+      'public_profile',
+    ]);
+    if (!loginFlow.isCancelled) {
+      const userData = await AccessToken.getCurrentAccessToken();
+      const accessToken = userData.accessToken.toString();
+      await this.retrieveUserInfos(accessToken);
+      this.props.onLogin();
+    }
   };
 
-  //TODO: USE LOGIN MANAGER  import {LoginManager} from 'react-native-fbsdk';
-  return (
-    <Button mode="contained" onPress={loginThroughFacebook}>
-      Login with Facebook
-    </Button>
-  );
-};
+  render() {
+    return (
+      <Button mode="contained" onPress={this.loginThroughFacebook}>
+        Login with Facebook
+      </Button>
+    );
+  }
+}
 
 export default FBLogin;

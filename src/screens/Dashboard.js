@@ -4,19 +4,35 @@ import Logo from '../components/Logo';
 import Header from '../components/Header';
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
+import {LoginManager} from 'react-native-fbsdk';
+import {GoogleSignin} from '@react-native-community/google-signin';
 
-const Dashboard = ({navigation}) => (
-  <Background>
-    <Logo />
-    <Header>Let’s start</Header>
-    <Paragraph>
-      Your amazing app starts here. Open you favourite code editor and start
-      editing this project.
-    </Paragraph>
-    <Button mode="outlined" onPress={() => navigation.navigate('HomeScreen')}>
-      Logout
-    </Button>
-  </Background>
-);
+const Dashboard = ({navigation}) => {
+  const logout = async () => {
+    LoginManager.logOut();
+
+    const isSignedWithGoogle = await GoogleSignin.isSignedIn();
+    if (isSignedWithGoogle) {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+    }
+
+    navigation.navigate('HomeScreen');
+  };
+
+  return (
+    <Background>
+      <Logo />
+      <Header>Let’s start</Header>
+      <Paragraph>
+        Your amazing app starts here. Open you favourite code editor and start
+        editing this project.
+      </Paragraph>
+      <Button mode="outlined" onPress={logout}>
+        Logout
+      </Button>
+    </Background>
+  );
+};
 
 export default memo(Dashboard);

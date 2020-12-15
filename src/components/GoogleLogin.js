@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-community/google-signin';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {GoogleSignin} from '@react-native-community/google-signin';
+import Button from '../components/Button';
 
 class GoogleLogin extends React.Component {
   onLogin;
@@ -26,6 +23,7 @@ class GoogleLogin extends React.Component {
         GoogleSignin.signInSilently().then((currentUserInfo) => {
           this.setState({userInfo: currentUserInfo});
           this.setState({loggedIn: true});
+          this.props.onLogin();
         });
     });
   }
@@ -48,43 +46,11 @@ class GoogleLogin extends React.Component {
       });
   };
 
-  signOut = () => {
-    GoogleSignin.revokeAccess()
-      .then(() => {
-        GoogleSignin.signOut()
-          .then(() => {
-            this.setState({loggedIn: false});
-            this.setState({userInfo: {}});
-          })
-          .catch((err) => {
-            console.log('Could not sign out from Google', err);
-          });
-      })
-      .catch((err) => {
-        console.log('Could not revoke access', err);
-      });
-  };
-
   render() {
     return (
-      <View>
-        {!this.state.loggedIn && (
-          <GoogleSigninButton
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={this.signIn}
-            disabled={false}
-          />
-        )}
-        {this.state.loggedIn && (
-          <View>
-            <Text>Welcome {this.state.userInfo.user.name}</Text>
-            <TouchableOpacity onPress={this.signOut}>
-              <Text>SIGN OUT FROM GOOGLE</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
+      <Button mode="contained" onPress={this.signIn}>
+        Login with Google
+      </Button>
     );
   }
 }
